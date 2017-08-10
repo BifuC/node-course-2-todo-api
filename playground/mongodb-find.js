@@ -23,14 +23,29 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db) => {
     }
     console.log('Connected to MongoDB server.');
 
-    // find returns MongoDB Cursor, which is a pointer to the documents.
+    // Find -- find returns MongoDB Cursor, which is a pointer to the documents.
     // use the Cursor method 'toArray' to get an array of documents.
     // toArray returns a promise.
-    db.collection('Todos').find().toArray().then((docs) => {
-        console.log('Todos');
+    // db.collection('Todos').find({
+    //     _id: new ObjectID('598bbef13e7ab22104a244b4')
+    // }).toArray().then((docs) => {
+    //     console.log('Todos');
+    //     console.log(JSON.stringify(docs, undefined, 2));
+    // }, (err) => {
+    //     console.log('Unable to fetch todos (documents).', err);
+    // });
+
+    // Count
+    // db.collection('Todos').find().count().then((count) => {
+    //     console.log(`Todos count:${count}`);
+    // }, (err) => {
+    //     console.log('Unable to fetch todos (documents).', err);
+    // });
+
+    db.collection('Users').find({name: 'Jim'}).toArray().then((docs) => {
         console.log(JSON.stringify(docs, undefined, 2));
     }, (err) => {
-        console.log('Unable to fetch todos (documents).', err);
+        console.log('Failed to find docs.', err);
     });
 
     // db.close();
