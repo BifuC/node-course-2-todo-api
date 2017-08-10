@@ -29,7 +29,11 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db) => {
             return console.log('Unable to insert user', err);
         }
 
-        console.log(JSON.stringify(result.ops, undefined, 2));
+        // This will output the ObjectId for the document(record) inserted.
+        //console.log(result.ops[0]._id);
+        // This will output the timestamp in the ObjectId for the document(record) inserted.
+        console.log(result.ops[0]._id.getTimestamp());
+
     });
 
     db.close();
