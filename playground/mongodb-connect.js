@@ -1,4 +1,21 @@
-const MongoClient = require('mongodb').MongoClient;
+/*
+// Object destructuring (in ES6) 
+var user = {name: 'Bob', age:25};
+// The following destructures the 'user' object, 
+// pulling the 'name' property out of it,
+// and assigning its value to a variable called 'name'.
+var {name} = user;
+console.log(name);
+*/
+
+// const MongoClient = require('mongodb').MongoClient;
+/* Using "Object destructuring" (see example above), we can pull the MongoClient poperty
+// from the mongodb library, in addition to any other properties from mongodb (exa, ObjectID).*/
+const {MongoClient, ObjectID} = require('mongodb');
+
+// Using ObjectID from the mongodb library, we can create our own ObjectID's. 
+/*var obj = new ObjectID();
+console.log(obj);*/
 
 MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db) => {
     if (err) {
@@ -32,7 +49,7 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db) => {
         // This will output the ObjectId for the document(record) inserted.
         //console.log(result.ops[0]._id);
         // This will output the timestamp in the ObjectId for the document(record) inserted.
-        console.log(result.ops[0]._id.getTimestamp());
+        //console.log(result.ops[0]._id.getTimestamp());
 
     });
 
