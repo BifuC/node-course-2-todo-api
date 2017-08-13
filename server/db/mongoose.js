@@ -7,10 +7,4 @@ mongoose.Promise = global.Promise;
 // mongoose.connect('URI here', {useMongoClient:true});
 mongoose.connect((process.env.MONGODB_URI) ? (process.env.MONGODB_URI) : 'mongodb://localhost:27017/TodoApp', {useMongoClient:true});
 
-// if (process.env.MONGODB_URI) {
-//     // Connect using "mongolab" cloud uri.
-// } else {
-//     mongoose.connect('mongodb://localhost:27017/TodoApp', {useMongoClient:true});
-// }
-
 module.exports = {mongoose};
