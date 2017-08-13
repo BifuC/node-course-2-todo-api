@@ -1,5 +1,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+var {ObjectID} = require('mongodb');
 
 var {mongoose} = require('./db/mongoose');
 var {Todo} = require('./models/todo');
@@ -14,6 +15,8 @@ app.use(bodyParser.json());
 // 	"text": "A test todo post from postman"
 // }
 app.post('/todos', (req, res) => {
+    // Use req.body to get the passed in body (exa., JSON) for this post request.
+    // Note that you need to 'use' the 'body-parser' middleware above.
     var todo = new Todo({text: req.body.text, completed: req.body.completed})
     todo.save().then((todo) => {
         res.status(200).send(todo);
@@ -45,6 +48,28 @@ app.get('/users', (req, res) => {
     }, (e) => {
         res.status(400).send(e);
     });
+});
+
+// GET - localhost:3000/todos/598f5c807069d50a205b8202
+app.get('/todos/:id', (req, res) => {
+    // req.params allows access to any passed in, request parameters.
+    var id = req.params.id;
+
+    if (!ObjectID.isValid(id)) {
+        res.status(404).send();
+    }
+
+    Todo.findById(id).then((todo) => {
+        if (!todo) {
+            res.status(404).send();
+        }
+        res.status(200).send({todo: todo});
+
+    //}).catch((e) => res.status(400).send());
+    }, (e) => {
+        res.status(400).send();
+    })
+
 });
 
 app.listen(3000, () => {
